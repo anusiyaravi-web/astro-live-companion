@@ -77,7 +77,7 @@ export function getReading(details: BirthDetails | null): Reading {
   const name = details?.name?.trim() || "Stargazer";
   const day = new Date().toISOString().slice(0, 10);
   const h = hash(`${name}|${details?.dob ?? ""}|${details?.place ?? ""}|${day}`);
-  const pick = <T,>(arr: T[], salt: number) => arr[(h + salt) % arr.length];
+  const pick = <T,>(arr: T[], salt: number): T => arr[(h + salt) % arr.length] as T;
 
   return {
     name,
