@@ -16,7 +16,7 @@ export const Route = createFileRoute("/astro-card")({
       { property: "og:description", content: "Share your cosmic snapshot of the day." },
     ],
   }),
-  component: AstroCard;
+  component: AstroCard,
 });
 
 function AstroCard() {
