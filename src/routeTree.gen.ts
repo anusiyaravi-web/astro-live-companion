@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AstroCardRouteImport } from './routes/astro-card'
 import { Route as BirthDetailsRouteImport } from './routes/birth-details'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -17,6 +18,11 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AstroCardRoute = AstroCardRouteImport.update({
+  id: '/astro-card',
+  path: '/astro-card',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BirthDetailsRoute = BirthDetailsRouteImport.update({
@@ -37,12 +43,14 @@ const DashboardRoute = DashboardRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/astro-card': typeof AstroCardRoute
   '/birth-details': typeof BirthDetailsRoute
   '/chat': typeof ChatRoute
   '/dashboard': typeof DashboardRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/astro-card': typeof AstroCardRoute
   '/birth-details': typeof BirthDetailsRoute
   '/chat': typeof ChatRoute
   '/dashboard': typeof DashboardRoute
@@ -50,20 +58,23 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/astro-card': typeof AstroCardRoute
   '/birth-details': typeof BirthDetailsRoute
   '/chat': typeof ChatRoute
   '/dashboard': typeof DashboardRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/birth-details' | '/chat' | '/dashboard'
+  fullPaths: '/' | '/astro-card' | '/birth-details' | '/chat' | '/dashboard'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/birth-details' | '/chat' | '/dashboard'
-  id: '__root__' | '/' | '/birth-details' | '/chat' | '/dashboard'
+  to: '/' | '/astro-card' | '/birth-details' | '/chat' | '/dashboard'
+  id:
+    '__root__' | '/' | '/astro-card' | '/birth-details' | '/chat' | '/dashboard'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AstroCardRoute: typeof AstroCardRoute
   BirthDetailsRoute: typeof BirthDetailsRoute
   ChatRoute: typeof ChatRoute
   DashboardRoute: typeof DashboardRoute
@@ -76,6 +87,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/astro-card': {
+      id: '/astro-card'
+      path: '/astro-card'
+      fullPath: '/astro-card'
+      preLoaderRoute: typeof AstroCardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/birth-details': {
@@ -104,6 +122,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AstroCardRoute: AstroCardRoute,
   BirthDetailsRoute: BirthDetailsRoute,
   ChatRoute: ChatRoute,
   DashboardRoute: DashboardRoute,
