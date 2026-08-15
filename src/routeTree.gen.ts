@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BirthDetailsRouteImport } from './routes/birth-details'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const BirthDetailsRoute = BirthDetailsRouteImport.update({
   path: '/birth-details',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -32,30 +38,34 @@ const DashboardRoute = DashboardRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/birth-details': typeof BirthDetailsRoute
+  '/chat': typeof ChatRoute
   '/dashboard': typeof DashboardRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/birth-details': typeof BirthDetailsRoute
+  '/chat': typeof ChatRoute
   '/dashboard': typeof DashboardRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/birth-details': typeof BirthDetailsRoute
+  '/chat': typeof ChatRoute
   '/dashboard': typeof DashboardRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/birth-details' | '/dashboard'
+  fullPaths: '/' | '/birth-details' | '/chat' | '/dashboard'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/birth-details' | '/dashboard'
-  id: '__root__' | '/' | '/birth-details' | '/dashboard'
+  to: '/' | '/birth-details' | '/chat' | '/dashboard'
+  id: '__root__' | '/' | '/birth-details' | '/chat' | '/dashboard'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BirthDetailsRoute: typeof BirthDetailsRoute
+  ChatRoute: typeof ChatRoute
   DashboardRoute: typeof DashboardRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BirthDetailsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BirthDetailsRoute: BirthDetailsRoute,
+  ChatRoute: ChatRoute,
   DashboardRoute: DashboardRoute,
 }
 export const routeTree = rootRouteImport
